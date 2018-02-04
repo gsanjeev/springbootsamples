@@ -4,12 +4,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.example.laxtech</groupId>
-	<artifactId>actors</artifactId>
+	<artifactId>meesage-broker</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>actors</name>
-	<description>Demo project for Spring Boot</description>
+	<name>>meesage-broker</name>
+	<description>Demo project for Spring Boot Redis Messag Broker</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -48,6 +48,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
+		<finalName>RedisMessageBroker</finalName>
 	</build>
 
 
