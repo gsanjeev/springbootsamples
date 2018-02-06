@@ -17,7 +17,7 @@ public class ActorRepositoryImpl implements ActorRepository {
     private HashOperations hashOperations;
 
     @Autowired
-    public ActorRepositoryImpl(RedisTemplate<String, Actor> redisTemplate){
+    public ActorRepositoryImpl(RedisTemplate redisTemplate){
         this.redisTemplate = redisTemplate;
     }
 
