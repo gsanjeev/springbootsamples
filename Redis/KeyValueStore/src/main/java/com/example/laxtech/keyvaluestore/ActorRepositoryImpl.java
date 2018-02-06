@@ -10,14 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
         import javax.annotation.PostConstruct;
 
 @Repository
-public class RedisRepositoryImpl implements RedisRepository {
+public class ActorRepositoryImpl implements ActorRepository {
     private static final String KEY = "Actor";
 
-    private RedisTemplate<String, Object> redisTemplate;
+    private RedisTemplate<String, Actor> redisTemplate;
     private HashOperations hashOperations;
 
     @Autowired
-    public RedisRepositoryImpl(RedisTemplate<String, Object> redisTemplate){
+    public ActorRepositoryImpl(RedisTemplate<String, Actor> redisTemplate){
         this.redisTemplate = redisTemplate;
     }
 
@@ -26,11 +26,15 @@ public class RedisRepositoryImpl implements RedisRepository {
         hashOperations = redisTemplate.opsForHash();
     }
 
-    public void add(final Actor actor) {
-        hashOperations.put(KEY, actor.getId(), actor.getName());
+    public void addActor(final Actor actor) {
+        hashOperations.put(KEY, actor.getId(), actor);
     }
 
-    public void delete(final String id) {
+    public void updateActor(Actor actor) {
+        hashOperations.put(KEY, actor.getId(), actor);
+    }
+
+    public void deleteActor(final String id) {
         hashOperations.delete(KEY, id);
     }
 

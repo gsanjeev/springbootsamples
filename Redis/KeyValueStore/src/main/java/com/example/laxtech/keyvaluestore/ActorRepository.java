@@ -2,7 +2,7 @@ package com.example.laxtech.keyvaluestore;
 
 import java.util.Map;
 
-public interface RedisRepository {
+public interface ActorRepository {
 
     /**
      * Return all Actors
@@ -12,12 +12,17 @@ public interface RedisRepository {
     /**
      * Add key-value pair to Redis.
      */
-    void add(Actor actor);
+    void addActor(Actor actor);
+
+    /**
+     * Update key-value pair to Redis.
+     */
+    void updateActor(Actor actor);
 
     /**
      * Delete a key-value pair in Redis.
      */
-    void delete(String id);
+    void deleteActor(String id);
 
     /**
      * find a actor

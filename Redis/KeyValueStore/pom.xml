@@ -52,7 +52,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
-		<finalName>keyvaluestore</finalName>
+		<finalName>KeyValueStore</finalName>
 	</build>
 
 
