@@ -30,12 +30,16 @@ public class WebController {
     }
 
     @RequestMapping("/values")
-    public @ResponseBody Map<String, String> findAll() {
-        Map<Object, Object> aa = redisRepository.findAllActors();
-        Map<String, String> map = new HashMap<String, String>();
-        for(Map.Entry<Object, Object> entry : aa.entrySet()){
+    public @ResponseBody Map<String, Actor> findAll() {
+        Map<Object, Object> allActors = redisRepository.findAllActors();
+        Map<String, Actor> map = new HashMap<String, Actor>();
+        for(Map.Entry<Object, Object> entry : allActors.entrySet()){
             String key = (String) entry.getKey();
-            map.put(key, aa.get(key).toString());
+            map.put(key, (Actor)allActors.get(key));
+            System.out.println("key: " + ((Actor)allActors.get(key)).getId() +
+                    "name: " +((Actor)allActors.get(key)).getName() +
+                    "age: " +((Actor)allActors.get(key)).getAge());
+
         }
         return map;
     }
@@ -43,20 +47,23 @@ public class WebController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public ResponseEntity<String> add(
             @RequestParam String key,
-            @RequestParam String value) {
-
-        Actor actor = new Actor(key, value);
+            @RequestParam String name,
+            @RequestParam Integer age) {
+System.out.println("key: " + key + "name: " +name + "age: " + age);
+        Actor actor = new Actor(key, name, age);
 
         redisRepository.addActor(actor);
+        System.out.println("key: " + actor.getId() + "name: " +actor.getName() + "age: " +actor.getAge());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public ResponseEntity<String> update(
             @RequestParam String key,
-            @RequestParam String value) {
+            @RequestParam String name,
+            @RequestParam Integer age) {
 
-        Actor actor = new Actor(key, value);
+        Actor actor = new Actor(key, name, age);
 
         redisRepository.updateActor(actor);
         return new ResponseEntity<>(HttpStatus.OK);

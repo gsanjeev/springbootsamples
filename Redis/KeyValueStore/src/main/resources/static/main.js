@@ -47,11 +47,12 @@ function deleteButton(key) {
  * \param key (str) text into the key cell.
  * \param value (str) text into the value cell.
  */
-function row(key, value) {
+function row(key, name, age) {
     return $(
         tr(
             td(key) +
-            td(value) +
+            td(name) +
+            td(age) +
             td(editButton(key)) +
             td(deleteButton(key))));
 }
@@ -60,13 +61,18 @@ function row(key, value) {
  * Clear and reload the values in data table.
  */
 function refreshTable() {
+//alert("refreshTable0");
     $.get('/values', function(data) {
         var attr,
             mainTable = $('#mainTable tbody');
         mainTable.empty();
+        // alert("refreshTable1");
+
         for (attr in data) {
+       // alert("attr"+attr);
             if (data.hasOwnProperty(attr)) {
-                mainTable.append(row(attr, data[attr]));
+                alert(data[attr].name);
+                mainTable.append(row(attr, data[attr].name, data[attr].age));
             }
         }
     });
@@ -78,16 +84,19 @@ function editKey(key) {
         selector = format.replace(/{key}/, key),
         cells = $(selector).parent().children(),
         key = cells[0].textContent,
-        value = cells[1].textContent,
+        name = cells[1].textContent,
+        age = cells[2].textContent,
         keyInput = $('#keyInput'),
-        valueInput = $('#valueInput');
+        nameInput = $('#nameInput'),
+        ageInput = $('#ageInput');
 
     /* Load the key and value texts into inputs
      * Select value text so it can be directly typed to
      */
     keyInput.val(key);
-    valueInput.val(value);
-    valueInput.select();
+    nameInput.val(name);
+    ageInput.val(age);
+    nameInput.select();
 }
 
 /**
@@ -108,14 +117,18 @@ function deleteKey(key) {
 }
 
 $(document).ready(function() {
+alert("ready");
     var keyInput = $('#keyInput'),
-        valueInput = $('#valueInput');
+        nameInput = $('#nameInput'),
+        ageInput = $('#ageInput');
 
     refreshTable();
     $('#addForm').on('submit', function(event) {
+    //alert("submit"+keyInput.val());
         var data = {
             key: keyInput.val(),
-            value: valueInput.val()
+            name: nameInput.val(),
+            age: ageInput.val()
         };
 
         /*
@@ -124,9 +137,11 @@ $(document).ready(function() {
          * Set keyboard focus to key input: ready to start typing.
          */
         $.post('/add', data, function() {
+        //alert("add"+data.key);
             refreshTable();
             keyInput.val('');
-            valueInput.val('');
+            nameInput.val('');
+            ageInput.val('');
             keyInput.focus();
         });
         /* Prevent HTTP form submit */

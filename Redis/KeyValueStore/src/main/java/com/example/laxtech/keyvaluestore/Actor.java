@@ -10,12 +10,12 @@ public class Actor implements Serializable {
     private static final long serialVersionUID = 1L;
     private String id;
     private String name;
-    private int age;
+    private Integer age;
 
-    public Actor(String id, String name) {
+    public Actor(String id, String name, Integer age) {
         this.id = id;
         this.name = name;
-
+        this.age = age;
     }
 
     public String getId() {
@@ -34,11 +34,11 @@ public class Actor implements Serializable {
         this.name = name;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 
