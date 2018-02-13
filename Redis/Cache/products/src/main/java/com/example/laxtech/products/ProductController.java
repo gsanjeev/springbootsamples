@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/posts")
+@RequestMapping("/products")
 public class ProductController {
 
     private static final Logger log = LoggerFactory.getLogger(ProductController.class);
@@ -19,38 +19,38 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @Cacheable(value = "post-single", key = "#id", unless = "#result.shares < 500")
+    @Cacheable(value = "product-single", key = "#id", unless = "#result.price.doubleValue() < 675.00")
     @GetMapping("/{id}")
     public Product getProductByID(@PathVariable String id) throws ProductNotFoundException {
-        log.info("get post with id {}", id);
+        log.info("get product with id {}", id);
         return productService.getProductByID(id);
     }
 
-    @CachePut(value = "post-single", key = "#post.id")
+    @CachePut(value = "product-single", key = "#product.id")
     @PutMapping("/update")
-    public Product updateProductByID(@RequestBody Product post) throws ProductNotFoundException {
-        log.info("update post with id {}", post.getId());
-        productService.updateProduct(post);
-        return post;
+    public Product updateProductByID(@RequestBody Product product) throws ProductNotFoundException {
+        log.info("update product with id {}", product.getId());
+        productService.updateProduct(product);
+        return product;
     }
 
-    @CacheEvict(value = "post-single", key = "#id")
+    @CacheEvict(value = "product-single", key = "#id")
     @DeleteMapping("/delete/{id}")
     public void deleteProductByID(@PathVariable String id) throws ProductNotFoundException {
-        log.info("delete post with id {}", id);
+        log.info("delete product with id {}", id);
         productService.deleteProduct(id);
     }
 
-    @Cacheable(value = "post-top")
+    @Cacheable(value = "product-top") // sanjeev : this should not be cached or how to cache this kind of result?
     @GetMapping("/top")
     public List<Product> getTopProducts() {
         return productService.getTopProducts();
     }
 
-    @CacheEvict(value = "post-top")
+    @CacheEvict(value = "product-top")
     @GetMapping("/top/evict")
     public void evictTopProducts() {
-        log.info("Evict post-top");
+        log.info("Evict product-top");
     }
 
 }

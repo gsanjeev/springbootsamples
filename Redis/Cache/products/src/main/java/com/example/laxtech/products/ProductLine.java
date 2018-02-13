@@ -1,8 +1,12 @@
 package com.example.laxtech.products;
 
-public class ProductLine {
+import java.io.Serializable;
+
+public class ProductLine  implements Serializable {
 
     String name;
+
+    public ProductLine() {   }
 
     public ProductLine(String name) {
         this.name = name;

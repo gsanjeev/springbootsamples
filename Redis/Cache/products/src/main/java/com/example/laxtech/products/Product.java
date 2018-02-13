@@ -7,15 +7,18 @@ public class Product implements Serializable {
     private String id;
     private String title;
     private String description;
+    private Double price;
     private String image;
     private ProductLine productLine;
 
+    public Product() {
+    }
 
-
-    public Product(String id, String title, String description, String image, ProductLine productLine) {
+    public Product(String id, String title, String description, Double price, String image, ProductLine productLine) {
         this.id = id;
         this.title = title;
         this.description = description;
+        this.price = price;
         this.image = image;
         this.productLine = productLine;
     }
@@ -42,6 +45,22 @@ public class Product implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public ProductLine getProductLine() {
+        return productLine;
+    }
+
+    public void setProductLine(ProductLine productLine) {
+        this.productLine = productLine;
     }
 
     public String getImage() {
