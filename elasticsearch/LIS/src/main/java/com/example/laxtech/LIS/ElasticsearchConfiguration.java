@@ -15,7 +15,7 @@ import org.springframework.data.elasticsearch.repository.config.EnableElasticsea
 import java.net.InetAddress;
 
 @Configuration
-@EnableElasticsearchRepositories(basePackages = "com.mkyong.book.repository")
+@EnableElasticsearchRepositories(basePackages = "com.example.laxtech.LIS")
 public class ElasticsearchConfiguration {
 
     @Value("${elasticsearch.host}")
@@ -29,9 +29,6 @@ public class ElasticsearchConfiguration {
 
     @Bean
     public Client client() throws Exception {
-
-        Settings elasticsearchSettings = Settings.builder().put("cluster.name", elasticsearchClusterName)
-                .build();
 
         Settings settings = Settings.builder()
                 .put("cluster.name", elasticsearchClusterName).build();

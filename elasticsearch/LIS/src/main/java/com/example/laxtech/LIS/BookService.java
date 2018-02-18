@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface BookService {
 
@@ -11,7 +12,7 @@ public interface BookService {
 
     void delete(Book book);
 
-   // Book findOne(String id);
+    Optional<Book> findOne(String id);
 
     Iterable<Book> findAll();
 

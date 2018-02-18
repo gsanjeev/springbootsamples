@@ -3,7 +3,7 @@ package com.example.laxtech.LIS;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
-@Document(indexName = "mkyong", type = "books")
+@Document(indexName = "book_indx", type = "books")
 public class Book {
 
     @Id

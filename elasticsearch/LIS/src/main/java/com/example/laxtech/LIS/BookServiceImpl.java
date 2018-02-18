@@ -6,6 +6,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -26,9 +27,9 @@ public class BookServiceImpl implements BookService {
         bookRepository.delete(book);
     }
 
-/*    public Book findOne(String id) {
+    public Optional<Book> findOne(String id) {
         return bookRepository.findById(id);
-    }*/
+    }
 
     public Iterable<Book> findAll() {
         return bookRepository.findAll();

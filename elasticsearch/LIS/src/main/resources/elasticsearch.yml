@@ -1,0 +1,3 @@
+#This file is not used in LIS application but external elasticsearch server need to be updated for cluster name
+#update F:\apps\elasticsearch-6.2.1\config\elasticsearch.yml file as below.
+cluster.name: LIS
