@@ -103,17 +103,17 @@ public class ElasticsearchQueryIntegrationTest {
     }
 
     @Test
-    public void givenFullTitle_whenRunMatchQueryOnVerbatimField_thenDocIsFound() {
+    public void givenFullTitle_whenRunMatchQueryOnVerbatimField_thenDocIsFound() {//verbatim is not working. wrong asserts testing
         SearchQuery searchQuery = new NativeSearchQueryBuilder()
           .withQuery(matchQuery("title.verbatim", "Second Article About Elasticsearch")).build();
         List<Article> articles = elasticsearchTemplate.queryForList(searchQuery, Article.class);
-        //assertEquals(1, articles.size());
+        //assertEquals(1, articles.size());// this is not working. and should work
         assertEquals(3, articles.size());
 
         searchQuery = new NativeSearchQueryBuilder().withQuery(matchQuery("title.verbatim", "Second Article About"))
           .build();
         articles = elasticsearchTemplate.queryForList(searchQuery, Article.class);
-        //assertEquals(0, articles.size());
+        //assertEquals(0, articles.size());// this is not working. and should work
         assertEquals(1, articles.size());
     }
 
@@ -126,8 +126,8 @@ public class ElasticsearchQueryIntegrationTest {
 
         assertEquals(2, articles.size());
     }
-
-/*     @Test
+/*
+     @Test
     public void givenAnalyzedQuery_whenMakeAggregationOnTermCount_thenEachTokenCountsSeparately() {
         final TermsAggregationBuilder aggregation = AggregationBuilders.terms("top_tags").field("title");
         final SearchResponse response = client.prepareSearch("blog").setTypes("article").addAggregation(aggregation)

@@ -124,8 +124,7 @@ public class ElasticsearchQueryApplicationTests {
 		final String newTitle = "Getting started with Search Engines";
 		article.setTitle(newTitle);
 		articleService.save(article);
-
-		//assertEquals(newTitle, articleService.findOne(article.getId()).getTitle());
+		assertEquals(newTitle, articleService.findOne(article.getId()).get().getTitle());
 	}
 
 	@Test

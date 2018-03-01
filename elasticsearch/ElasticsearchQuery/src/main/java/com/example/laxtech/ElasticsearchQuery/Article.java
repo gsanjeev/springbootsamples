@@ -1,10 +1,7 @@
 package com.example.laxtech.ElasticsearchQuery;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.elasticsearch.annotations.Document;
-import org.springframework.data.elasticsearch.annotations.Field;
-import org.springframework.data.elasticsearch.annotations.InnerField;
-import org.springframework.data.elasticsearch.annotations.MultiField;
+import org.springframework.data.elasticsearch.annotations.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -20,7 +17,7 @@ public class Article {
     private String id;
 
     //@MultiField(mainField = @Field(type = text), otherFields = { @InnerField(indexAnalyzer = "not_analyzed", suffix = "verbatim", type = text) })
-    @MultiField(mainField = @Field(type = text), otherFields = { @InnerField(suffix = "verbatim", type = text) })
+    @MultiField(mainField = @Field(type = text), otherFields = { @InnerField(indexAnalyzer = "", suffix = "verbatim", type = text) })
     private String title;
 
     @Field(type = Nested)

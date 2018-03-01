@@ -1,6 +1,7 @@
 package com.example.laxtech.ElasticsearchQuery;
 
 import com.alibaba.fastjson.JSON;
+import org.elasticsearch.action.DocWriteResponse;
 import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchResponse;
@@ -16,6 +17,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -38,17 +40,20 @@ public class ElasticSearchManualTest {
     @Autowired
     private Client client;
 
+    @Autowired
+    private ElasticsearchOperations eo;
+
+
     @Before
     public void setUp() {
         Person person1 = new Person(10, "John Doe", new Date());
         Person person2 = new Person(25, "Janette Doe", new Date());
         listOfPersons.add(person1);
         listOfPersons.add(person2);
-/*        Node node = NodeBuilder.nodeBuilder()
-          .clusterName("elasticsearch")
-          .client(true)
-          .node();
-        client = node.client();*/
+/*        eo.createIndex("Person");
+        eo.putMapping(Person.class);
+        eo.refresh(Person.class);*/
+
     }
 
     @Test
@@ -60,7 +65,7 @@ public class ElasticSearchManualTest {
           .get();
         String index = response.getIndex();
         String type = response.getType();
-       // assertTrue(response.isCreated());
+        assertTrue(response.getResult() == DocWriteResponse.Result.CREATED);
         assertEquals(index, "people");
         assertEquals(type, "Doe");
     }
@@ -76,7 +81,7 @@ public class ElasticSearchManualTest {
         DeleteResponse deleteResponse = client
           .prepareDelete("people", "Doe", id)
           .get();
-       // assertTrue(deleteResponse.isFound());
+        assertTrue(deleteResponse.getResult() == DocWriteResponse.Result.DELETED);
     }
 
     @Test
@@ -93,7 +98,8 @@ public class ElasticSearchManualTest {
           .collect(Collectors.toList());
     }
 
-    @Test
+
+/*    @Test
     public void givenSearchParameters_thenReturnResults() {
         SearchResponse response = client
           .prepareSearch()
@@ -132,11 +138,10 @@ public class ElasticSearchManualTest {
           .actionGet();
         response2.getHits();
         response3.getHits();
-
-/*        final List<Person> results = Arrays.stream(response.getHits().getHits())
+       final List<Person> results = Arrays.stream(response.getHits().getHits())
           .map(hit -> JSON.parseObject(hit.getSourceAsString(), Person.class))
-          .collect(Collectors.toList());*/
-    }
+          .collect(Collectors.toList());
+    }*/
 
     @Test
     public void givenContentBuilder_whenHelpers_thanIndexJson() throws IOException {
@@ -151,6 +156,6 @@ public class ElasticSearchManualTest {
           .prepareIndex("people", "Doe")
           .setSource(builder)
           .get();
-       // assertTrue(response.isCreated());
+        assertTrue(response.getResult() == DocWriteResponse.Result.CREATED);
     }
 }
