@@ -12,7 +12,7 @@ public class MicrometerConfig {
     MeterRegistryCustomizer meterRegistryCustomizer(MeterRegistry meterRegistry) {
         return meterRegistry1 -> {
             meterRegistry.config().commonTags("applicaton", "micrometer-springboot-example1")
-            .commonTags("applicationtype", "simple");
+            .commonTags("Region", "US-West");
         };
     }
 }

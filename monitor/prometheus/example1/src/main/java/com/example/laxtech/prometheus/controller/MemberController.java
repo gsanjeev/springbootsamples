@@ -41,4 +41,9 @@ public class MemberController {
     public String getTurnaments() {
         return "This is turnament 1";
     }
+
+    @GetMapping("/ground")
+    public String getGrounds() {
+        return "This is ground 1";
+    }
 }
