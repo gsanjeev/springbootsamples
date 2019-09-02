@@ -1,0 +1,35 @@
+logging:
+  level:
+    com:
+      netflix:
+        eureka: OFF
+
+---
+spring:
+  profiles: peer1
+server:
+  port: 8761
+eureka:
+  instance:
+    hostname: ${EUREKA_PEER1_INSTANCE:localhost}
+    prefer-ip-address: false
+  client:
+    registerWithEureka: true
+    fetchRegistor: true
+    serviceUrl:
+      defaultZone: http://${EUREKA_PEER2_INSTANCE:localhost:8761}}/eureka/
+
+---
+spring:
+  profiles: peer2
+server:
+  port: 8762
+eureka:
+  instance:
+    hostname: ${EUREKA_PEER1_INSTANCE:localhost}
+    prefer-ip-address: false
+  client:
+    registerWithEureka: true
+    fetchRegistor: true
+    serviceUrl:
+      defaultZone: http://${EUREKA_PEER2_INSTANCE:localhost:8762}}/eureka/
